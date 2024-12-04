@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.simple-chat</groupId>
 	<artifactId>chat-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<name>chat-service</name>
 	<description>simple chat messaging service</description>
 	<url/>
