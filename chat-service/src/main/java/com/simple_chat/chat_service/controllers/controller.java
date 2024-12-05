@@ -1,7 +1,7 @@
-package com.simple_chat.chat_service.service;
+package com.simple_chat.chat_service.controllers;
 
 import com.simple_chat.chat_service.entity.User;
-import com.simple_chat.chat_service.repository.UserRepository;
+import com.simple_chat.chat_service.service.UserService;
 import com.simple_chat.chat_service.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
 public class controller {
     @Autowired
-    UserRepository userRepository;
+    UserService userRepository;
 
     @GetMapping("/")
     public String homePage(){
@@ -26,7 +27,11 @@ public class controller {
                                @RequestParam(value = "email")String email,
                                @RequestParam(value = "password")String password
     ){
-        User user = new User(userName, email, password);
+        User user = new User();
+        user.setUserName(userName);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setCreatedAt(LocalDateTime.now());
         userRepository.save(user);
         return "Hi "+userName+", We will get you up and chatting in no time, just need to get you registered first!";
     }
