@@ -1,6 +1,5 @@
 package com.simple_chat.chat_service.entity;
 
-import com.simple_chat.chat_service.util.PasswordUtil;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;

@@ -16,13 +16,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
-    private int DAYS_TO_MILLI = 24 * 60 * 60 * 1000;
+    private int DAYS_TO_SECONDS = 24 * 60 * 60 ;
     private final JwtService jwtService;
     private final UserService userService;
 
@@ -44,7 +43,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginUserDto loginUserDto){
-        User user = userService.findByUserName(loginUserDto.getUserName())
+        User user = userService.findByUsername(loginUserDto.getUserName())
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found"));
 
         if (!PasswordUtil.verifyPassword(user.getPassword(), loginUserDto.getPassword()))
@@ -64,7 +63,7 @@ public class AuthController {
                 .sameSite("Strict")
                 .secure(true)
                 .path("/")
-                .maxAge(days * DAYS_TO_MILLI)
+                .maxAge(days * DAYS_TO_SECONDS)
                 .build().toString();
     }
 
@@ -76,7 +75,6 @@ public class AuthController {
         user.setCreatedAt(LocalDateTime.now());
 
         userService.save(user);
-
         return user;
     }
 }

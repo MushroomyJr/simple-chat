@@ -1,7 +1,7 @@
 package com.simple_chat.chat_service.controllers;
 
 import com.simple_chat.chat_service.entity.User;
-import com.simple_chat.chat_service.service.UserService;
+import com.simple_chat.chat_service.repository.UserRepository;
 import com.simple_chat.chat_service.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @RestController
 public class controller {
     @Autowired
-    UserService userRepository;
+    UserRepository userRepository;
 
     @GetMapping("/")
     public String homePage(){

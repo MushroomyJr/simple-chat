@@ -1,7 +1,6 @@
 package com.simple_chat.chat_service.repository;
 
 import com.simple_chat.chat_service.entity.User;
-import com.simple_chat.chat_service.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -15,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class UserRepositoryTest {
 
     @Autowired
-    private UserService userRepository;
+    private UserRepository userRepository;
 
     @Test
     public void testSaveAndFindByUserName(){
