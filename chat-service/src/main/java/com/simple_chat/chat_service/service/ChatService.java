@@ -13,4 +13,5 @@ public interface ChatService {
     String lastMessage (Long chatId);
     Chat addMessage(Long chatId, MessageDto message);
     Chat updateName(Long chatId, String newName);
+    Chat updateParticipant(Long chatId, ChatDto chatDto);
 }

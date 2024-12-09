@@ -46,7 +46,13 @@ public class ChatController {
     @ResponseBody
     public ResponseEntity<?> addMessage(@PathVariable Long chatId, @Valid @RequestBody MessageDto message){
         Chat updatedChat = chatService.addMessage(chatId, message);
-        return ResponseEntity.ok().body(updatedChat);
+        return ResponseEntity.ok().body(updatedChat.toString());
     }
 
+    @PutMapping("/{chatId}/edit/participant")
+    @ResponseBody
+    public ResponseEntity<?> editParticipant(@PathVariable Long chatId, @Valid @RequestBody ChatDto chatDto){
+        Chat updatedChat = chatService.updateParticipant(chatId, chatDto);
+        return ResponseEntity.ok().body(updatedChat.toString());
+    }
 }

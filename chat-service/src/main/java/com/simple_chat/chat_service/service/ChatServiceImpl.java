@@ -9,6 +9,7 @@ import com.simple_chat.chat_service.repository.ChatRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,6 +56,9 @@ public class ChatServiceImpl implements ChatService{
     public Chat addMessage(Long chatId, MessageDto messageDto) {
         Chat chat = chatRepository.findById(chatId)
                 .orElseThrow(()->(new IllegalArgumentException("there is no chat with that name")));
+
+        if(!chat.getParticipantIds().contains(messageDto.getSenderId()))
+            throw new IllegalArgumentException("this sender is not in the chat");
         Message message = new Message();
         message.setChat(chat);
         message.setContent(messageDto.getContent());
@@ -72,6 +76,20 @@ public class ChatServiceImpl implements ChatService{
         Chat chat = chatRepository.findById(chatId)
                 .orElseThrow(()-> new IllegalArgumentException("cannot find chat with id: "+ chatId));
         chat.setName(newName);
+        return chatRepository.save(chat);
+    }
+
+    @Override
+    public Chat updateParticipant(Long chatId, ChatDto chatDto) {
+        Chat chat = chatRepository.findById(chatId)
+                .orElseThrow(()-> new IllegalArgumentException("can not find chat with id: "+chatId));
+        List <User> users = userService.findUsersByUsernames(chatDto.getParticipantNames());
+        System.out.println(users.toString());
+        List <Long> userIds = users.stream()
+                        .map(User :: getId)
+                                .toList();
+        chat.setParticipantIds(new ArrayList<>(userIds));
+        System.out.println(chat.toString());
         return chatRepository.save(chat);
     }
 }
