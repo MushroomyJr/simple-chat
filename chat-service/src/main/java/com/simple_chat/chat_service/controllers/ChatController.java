@@ -1,6 +1,7 @@
 package com.simple_chat.chat_service.controllers;
 
 import com.simple_chat.chat_service.DTOs.ChatDto;
+import com.simple_chat.chat_service.DTOs.ChatResponseDto;
 import com.simple_chat.chat_service.DTOs.MessageDto;
 import com.simple_chat.chat_service.entity.Chat;
 import com.simple_chat.chat_service.entity.User;
@@ -54,5 +55,19 @@ public class ChatController {
     public ResponseEntity<?> editParticipant(@PathVariable Long chatId, @Valid @RequestBody ChatDto chatDto){
         Chat updatedChat = chatService.updateParticipant(chatId, chatDto);
         return ResponseEntity.ok().body(updatedChat.toString());
+    }
+
+    @GetMapping("/{chatId}")
+    @ResponseBody
+    public ResponseEntity<?> getChat(@PathVariable Long chatId){
+        Chat chat = chatService.getChat(chatId);
+        return ResponseEntity.ok().body(chat);
+    }
+
+    @GetMapping("/user/{userId}")
+    @ResponseBody
+    public ResponseEntity<?> getUsersChats(@PathVariable Long userId){
+        List<ChatResponseDto> usersChats = chatService.getUsersChats(userId);
+        return ResponseEntity.ok().body(usersChats);
     }
 }

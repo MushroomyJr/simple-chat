@@ -1,5 +1,6 @@
 package com.simple_chat.chat_service.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -12,32 +13,24 @@ import java.util.ArrayList;
 @Entity
 @Table(name = "chats")
 @Data
+@Getter
+@Setter
 public class Chat {
 
     @Id
-    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter
-    @Setter
-    @ElementCollection
-    @CollectionTable(name = "chat_participants", joinColumns=@JoinColumn(name = "chat_id"))
-    @Column(name = "participant_id")
-    private List<Long> participantIds = new ArrayList<>();
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<ChatParticipant> participants = new ArrayList<>();
 
-    @Getter
-    @Setter
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> messages = new ArrayList<>();
 
     @Column( nullable = false)
-    @Getter
-    @Setter
     private String name;
 
     @Column(nullable = false)
-    @Getter
-    @Setter
     private int chatSize=0;
 }

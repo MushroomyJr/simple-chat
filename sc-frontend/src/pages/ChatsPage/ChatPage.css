@@ -1,0 +1,11 @@
+.chats-page {
+  display: flex;
+  height: 100vh;
+  background-color: #251e1e;
+}
+
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
