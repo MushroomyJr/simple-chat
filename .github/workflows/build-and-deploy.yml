@@ -44,11 +44,11 @@ jobs:
 
       # Copy the JAR file to the build context
       - name: Copy JAR file to chat-service
-        run: cp chat-service/target/chat-service-1.0.0.jar chat-service/
+        run: cp chat-service/target/chat-service-*.jar chat-service/
 
       # Verify the JAR file is created
       - name: List target files
-        run: ls -la ./chat-service/target
+        run: ls -la ./chat-service
 
       # Set up Docker
       - name: Log in to DockerHub
