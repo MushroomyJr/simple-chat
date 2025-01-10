@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.simple-chat</groupId>
 	<artifactId>chat-service</artifactId>
-	<version>0.1.0</version>
+	<version>1.0.0</version>
 	<name>chat-service</name>
 	<description>simple chat messaging service</description>
 	<url/>
@@ -80,6 +80,36 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.32</version>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId> <!-- for JSON processing -->
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.retry</groupId>
+			<artifactId>spring-retry</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.cdimascio</groupId>
+			<artifactId>dotenv-java</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 	</dependencies>
 

@@ -26,7 +26,7 @@ const RegistrationForm = ({ handleRegistration }: any) => {
 
   return (
     <div className="form-container">
-      <form className="registration-form" onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <input
           type="text"
           className="input"

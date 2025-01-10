@@ -1,10 +1,11 @@
 package com.simple_chat.chat_service.entity;
 
-import com.simple_chat.chat_service.util.PasswordUtil;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -18,23 +19,19 @@ public class User {
     @Getter
     @Setter
     @Column(unique = true, nullable = false)
-    public String userName;
+    private String userName;
     @Getter
     @Setter
     @Column(unique = true, nullable = false)
-    public String email;
+    private String email;
     @Getter
     @Setter
     @Column(nullable = false)
-    public String password;
+    private String password;
+    @Getter
+    @Setter
+    @Column(name = "createdAt", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-    public User() {
-    }
-
-    public User(String userName, String email, String password){
-        this.userName = userName;
-        this.email = email;
-        this.password = PasswordUtil.hashedPassword(password);
-    }
 
 }

@@ -1,0 +1,40 @@
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 250px;
+  background-color: #ffffff;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+.title {
+  color: #888;
+}
+.create-chat-button {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.user-chats {
+  list-style: none;
+  padding: 0;
+  color: #1976d2;
+}
+
+.chat-item {
+  padding: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
