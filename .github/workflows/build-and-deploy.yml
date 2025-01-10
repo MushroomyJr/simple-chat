@@ -38,6 +38,7 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -DskipTests -f ./pom.xml
       
+      # List the target files
       - name: List target files
           run: ls -la chat-service/target
 
