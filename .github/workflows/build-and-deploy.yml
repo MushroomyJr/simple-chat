@@ -34,6 +34,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      # show current directory
+      - name: Show chat-service directory before build
+        run: ls
+
       # Build the application with Maven
       - name: Build with Maven
         run: mvn clean package -DskipTests -f ./pom.xml
