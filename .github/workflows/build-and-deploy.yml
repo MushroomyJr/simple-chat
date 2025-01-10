@@ -42,6 +42,10 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -DskipTests -f ./chat-service/pom.xml
 
+      # Copy the JAR file to the build context
+      - name: Copy JAR file to chat-service
+        run: cp chat-service/target/chat-service-1.0.0.jar chat-service/
+
       # Verify the JAR file is created
       - name: List target files
         run: ls -la ./chat-service/target

@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the JAR file built from Maven
-COPY target/chat-service-1.0.0.jar app.jar
+COPY chat-service-1.0.0.jar app.jar
 COPY .env /app/.env
 
 # Expose the port your app runs on
