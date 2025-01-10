@@ -4,17 +4,16 @@ import com.simple_chat.chat_service.DTOs.ChatDto;
 import com.simple_chat.chat_service.DTOs.ChatResponseDto;
 import com.simple_chat.chat_service.DTOs.MessageDto;
 import com.simple_chat.chat_service.entity.Chat;
-import com.simple_chat.chat_service.entity.User;
-import com.simple_chat.chat_service.repository.ChatRepository;
-import com.simple_chat.chat_service.repository.UserRepository;
+import com.simple_chat.chat_service.entity.Message;
 import com.simple_chat.chat_service.service.ChatService;
+import com.simple_chat.chat_service.service.MessageService;
+import com.simple_chat.chat_service.service.MessageServiceImpl;
 import com.simple_chat.chat_service.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/chat")
@@ -23,10 +22,12 @@ public class ChatController {
 
     private final UserService userService;
     private final ChatService chatService;
+    private final MessageService messageService;
 
-    public ChatController(ChatService chatService, UserService userService){
+    public ChatController(ChatService chatService, UserService userService, MessageService messageService){
         this.chatService = chatService;
         this.userService = userService;
+        this.messageService = messageService;
     }
 
     @PostMapping("/create")
@@ -70,4 +71,13 @@ public class ChatController {
         List<ChatResponseDto> usersChats = chatService.getUsersChats(userId);
         return ResponseEntity.ok().body(usersChats);
     }
+
+    @GetMapping("/messages/{chatId}")
+    @ResponseBody
+    public ResponseEntity<?> getChatMessages(@PathVariable Long chatId){
+        System.out.println("getting chat for: "+chatId);
+        List<Message> messages = messageService.findChatMessages(chatId);
+        return ResponseEntity.ok().body(messages);
+    }
+
 }

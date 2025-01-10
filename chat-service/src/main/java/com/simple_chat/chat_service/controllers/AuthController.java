@@ -38,7 +38,7 @@ public class AuthController {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, createHttpOnlyCookie("refreshToken",refreshToken, 7))
-                .body(Map.of("jwtToken", jwtToken));
+                .body(Map.of("jwtToken", jwtToken, "user_id", user.getId()));
     }
 
     @PostMapping("/login")
@@ -54,7 +54,7 @@ public class AuthController {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, createHttpOnlyCookie("refreshToken", refreshToken, 7))
-                .body(Map.of("jwtToken", jwtToken));
+                .body(Map.of("jwtToken", jwtToken, "user_id", user.getId()));
     }
 
     private String createHttpOnlyCookie(String name, String value, int days){

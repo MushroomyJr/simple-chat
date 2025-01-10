@@ -1,4 +1,5 @@
 .chat-window {
+  width: 500px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -6,12 +7,15 @@
 }
 
 .message-list {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   overflow-y: auto;
   margin-bottom: 10px;
   background-color: #f1f1f1;
   padding: 10px;
   border-radius: 5px;
+  list-style: none;
 }
 
 .message-bubble {
@@ -31,6 +35,8 @@
   background-color: #e0e0e0;
   color: black;
   align-self: flex-start;
+  margin-right: auto;
+  margin-left: 10px;
 }
 
 .message-input-container {
@@ -57,4 +63,21 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.chat-name {
+  color: #888;
+  text-decoration: underline;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.message-sender {
+  font-size: smaller;
+  flex: auto;
+  flex-direction: row;
+  align-self: flex-start;
+  left: 0;
+}
+
+.message-content {
 }

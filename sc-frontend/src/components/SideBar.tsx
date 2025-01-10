@@ -1,53 +1,48 @@
-import { Button } from '@mui/material'
-import './SideBar.css'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
-
-const SideBar = ({ handleChatSelection }: any) => {
-  const jwtForTesting =
-    'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtdXN0YWZhLW5ld2VyIiwiaWF0IjoxNzMzNzQwMDU2LCJleHAiOjE3MzM4MjY0NTYsImlzcyI6InNpbXBsZV9jaGF0In0.FUFAgVYchjm6Ip8oaTeSaNc5aKHhhXyIzks6BfJifV1z52k5e4Iy-X89VKoVZ7LYWLF-SL1caenl9odC62qwrQ'
-
+import axios from 'axios'
+import { Chat } from '../common/types'
+import Button from '@mui/material/Button'
+import './SideBar.css'
+const Sidebar = ({ onSelectChat }: any) => {
   const [chats, setChats] = useState([])
+  const userId = localStorage.getItem('userId')
+  const jwt = localStorage.getItem('jwt')
+  const user_id = localStorage.getItem('user_id')
   useEffect(() => {
     const fetchChats = async () => {
       try {
-        const token = localStorage.getItem('jwt')
-        const response = await axios.get('http://localhost:8080/api/chat/1', {
-          headers: { Authorization: `Bearer ${jwtForTesting}` },
-        })
+        const response = await axios.get(
+          `http://localhost:8080/api/chat/user/${user_id}`,
+          {
+            headers: { Authorization: `Bearer ${jwt}` },
+          }
+        )
+        console.log('response: ', response.data)
         setChats(response.data)
-        console.log(response)
-      } catch {}
+      } catch (error) {
+        console.error('Failed to fetch chats:', error)
+      }
     }
-  }, [])
 
-  const mock_data = [
-    { id: 1, name: 'Chat one!' },
-    { id: 2, name: 'Chat two!' },
-    { id: 3, name: 'Chat three!' },
-  ]
+    fetchChats()
+  }, [userId])
 
-  const handleCreateChat = () => {
+  const handleCreateNewChat = () => {
     alert('creating new chat')
   }
-
-  const handleChatSelect = (chatId: number) => {
-    alert('chat has been selected, chatId: ' + chatId)
-    handleChatSelection(chatId)
-  }
-
   return (
     <>
       <div className="sidebar">
         <h3 className="title">Simple Chat</h3>
-        <Button onClick={handleCreateChat}>Create Chat 📝</Button>
-
+        <Button className="create-chat-button" onClick={handleCreateNewChat}>
+          new chat
+        </Button>
         <ul className="user-chats">
-          {mock_data.map((chat) => (
+          {chats.map((chat: Chat) => (
             <li
-              className="chat-item"
               key={chat.id}
-              onClick={() => handleChatSelect(chat.id)}
+              onClick={() => onSelectChat({ id: chat.id, name: chat.name })}
+              className="chat-item"
             >
               {chat.name}
             </li>
@@ -58,4 +53,4 @@ const SideBar = ({ handleChatSelection }: any) => {
   )
 }
 
-export default SideBar
+export default Sidebar

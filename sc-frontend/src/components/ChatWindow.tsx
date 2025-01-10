@@ -1,67 +1,60 @@
-import { Button } from '@mui/material'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { Message } from '../common/types'
 import './ChatWindow.css'
-const ChatWindow = ({ selectedChatId }: { selectedChatId: number }) => {
-  const mock_messages = [
-    { id: 1, sender: 'mustafa', content: 'this is message one' },
-    { id: 2, sender: 'saleha', content: 'this is the second message' },
-    {
-      id: 3,
-      sender: 'mustafa',
-      content: 'this is the second message from first user third in chat',
-    },
-  ]
-  const [newMessage, setNewMessage] = useState('')
-  const handleMessageSend = () => {
-    if (!newMessage.trim) return
-    else {
-      console.log('new message sent', newMessage)
-    }
-  }
-
+type ChatWindowProps = {
+  chatId: number
+  chatName: string
+}
+const ChatWindow = ({ chatId, chatName }: ChatWindowProps) => {
+  const [messages, setMessages] = useState([])
+  const currentUser = localStorage.getItem('user_id')
+  const jwt = localStorage.getItem('jwt')
   useEffect(() => {
-    const fetchMessages = () => {}
-  }, [selectedChatId])
+    const fetchMessages = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/chat/messages/${chatId}`,
+          { headers: { Authorization: `Bearer ${jwt}` } }
+        )
+        console.log(response.data)
+        setMessages(response.data)
+      } catch (error) {
+        console.error('Failed to fetch messages:', error)
+      }
+    }
+
+    const fetchChatParticipants = async () => {}
+
+    fetchMessages()
+  }, [chatId])
+
   return (
-    <>
-      {selectedChatId != null ? (
-        <>
-          <div className="chat-window">
-            <div className="message-list">
-              {mock_messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`message-bubble ${
-                    message.sender === 'mustafa' ? 'self' : 'other'
-                  }`}
-                >
-                  {message.content}
-                </div>
-              ))}
-            </div>
-            <div className="message-input-container">
-              <input
-                type="text"
-                value={newMessage}
-                onChange={(e) => {
-                  setNewMessage(e.target.value)
-                }}
-                onKeyDown={(e) => {
-                  if (e.key == 'Enter') handleMessageSend()
-                }}
-                placeholder="Type a new message..."
-                className="message-input"
-              />
-              <Button onClick={handleMessageSend} className="send-button">
-                Send
-              </Button>
-            </div>
-          </div>
-        </>
-      ) : (
-        <div>no chat selected</div>
-      )}
-    </>
+    <div className="chat-window">
+      <h2>Messages</h2>
+      <ul className="message-list">
+        <li className="chat-name">
+          <strong>{chatName}</strong>
+        </li>
+        {messages.map((message: Message) => (
+          <li
+            key={message.id}
+            className={`message-bubble ${
+              currentUser != null && message.senderId === parseInt(currentUser)
+                ? 'self'
+                : 'other'
+            }`}
+          >
+            <div className="message-sender">{message.senderId}:</div>
+            <div className="message-content">{message.content}</div>
+          </li>
+        ))}
+      </ul>
+      <div className="messageTextBox">
+        <input type="text" />
+        <button>Send</button>
+      </div>
+    </div>
   )
 }
 

@@ -18,12 +18,23 @@ import java.util.List;
 
 @Service
 public class JwtService {
-    Dotenv dotenv = Dotenv.configure().directory("./chat-service").load();
-    private  final String SECRET_KEY = dotenv.get("JWT_SECRET");
+    private final String jwtSecret;
     private final int JWT_EXPIRATION = 24 * 60 * 60 * 1000;
     private final int REFRESH_EXPIRATION =24 * 60 * 60 * 1000 * 7;
     private final String JWT_ISSUER = "simple_chat";
 
+    public JwtService() {
+        Dotenv dotenv;
+        try {
+            dotenv = Dotenv.load();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load .env file. Ensure it exists and is properly configured.", e);
+        }
+        this.jwtSecret = dotenv.get("JWT_SECRET");
+        if (this.jwtSecret == null || this.jwtSecret.isEmpty()) {
+            throw new RuntimeException("JWT_SECRET is missing in .env file.");
+        }
+    }
 
     public Authentication validateTokenAndExtractAuthentication(String token){
         System.out.println("token: "+token);
@@ -33,6 +44,7 @@ public class JwtService {
                 .parseClaimsJws(token)
                 .getBody();
 
+        System.out.println("extracted claims"+ claims);
         String username = claims.getSubject();
         return new UsernamePasswordAuthenticationToken(username, null, List.of());
     }
@@ -55,11 +67,11 @@ public class JwtService {
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis()+REFRESH_EXPIRATION))
                 .setIssuer(JWT_ISSUER)
-                .signWith(SignatureAlgorithm.HS512,SECRET_KEY)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS512)
                 .compact();
     }
 
     private Key getSigningKey(){
-        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 }

@@ -68,8 +68,9 @@ public class ChatServiceImpl implements ChatService{
         Chat chat = chatRepository.findById(chatId)
                 .orElseThrow(()->(new IllegalArgumentException("there is no chat with that name")));
 
-        if(!chat.getParticipants().contains(messageDto.getSenderId()))
-            throw new IllegalArgumentException("this sender is not in the chat");
+//        if(!chat.getParticipants().contains(messageDto.getSenderId()))
+//            throw new IllegalArgumentException("this sender is not in the chat "+ chat.getParticipants().get(0).getUser().getUserName());
+//
         Message message = new Message();
         message.setChat(chat);
         message.setContent(messageDto.getContent());

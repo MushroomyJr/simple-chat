@@ -5,8 +5,8 @@ import { UserInfo } from '../../common/types'
 import NavigateButton from '../../components/NavigateButton'
 import './RegisterPage.css'
 import { useNavigate } from 'react-router'
+
 const RegisterPage = () => {
-  const [registered, setRegistered] = useState(false)
   const [error, setError] = useState()
   const navigate = useNavigate()
   const handleUserRegistration = async (userInfo: UserInfo) => {
@@ -19,9 +19,10 @@ const RegisterPage = () => {
 
       if (response.status === 200) {
         localStorage.setItem('jwt', response.data.jwtToken)
+        localStorage.setItem('user_id', response.data.user_id)
       }
 
-      navigate('/')
+      navigate('/chats')
     } catch (err: any) {
       console.log('registration failed', err.response || err.message)
       setError(
@@ -35,11 +36,7 @@ const RegisterPage = () => {
       <NavigateButton to="/" text="🏠" state={{ referrer: 'RegisterPage' }} />
       <h1>the register page.</h1>
       {error && <p className="error-message">{error}</p>}
-      {registered ? (
-        <p></p>
-      ) : (
-        <RegistrationForm handleRegistration={handleUserRegistration} />
-      )}
+      <RegistrationForm handleRegistration={handleUserRegistration} />
     </>
   )
 }

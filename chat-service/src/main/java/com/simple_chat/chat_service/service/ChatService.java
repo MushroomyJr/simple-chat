@@ -4,7 +4,6 @@ import com.simple_chat.chat_service.DTOs.ChatDto;
 import com.simple_chat.chat_service.DTOs.ChatResponseDto;
 import com.simple_chat.chat_service.DTOs.MessageDto;
 import com.simple_chat.chat_service.entity.Chat;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

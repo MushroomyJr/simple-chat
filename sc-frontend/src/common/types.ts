@@ -15,3 +15,17 @@ export type NavigateButtonProps = {
   text: string
   state: any
 }
+
+export type Chat = {
+  id: number
+  size: number
+  name?: string
+  messages?: [Message]
+}
+
+export type Message = {
+  id: number
+  senderId: number
+  content: string
+  index: number
+}

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.simple-chat</groupId>
 	<artifactId>chat-service</artifactId>
-	<version>0.1.0</version>
+	<version>1.0.0</version>
 	<name>chat-service</name>
 	<description>simple chat messaging service</description>
 	<url/>
@@ -101,6 +101,10 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.retry</groupId>
+			<artifactId>spring-retry</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.github.cdimascio</groupId>
