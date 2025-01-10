@@ -21,6 +21,10 @@ jobs:
           java-version: 17
           distribution: temurin
 
+      # Navigate to the correct directory
+      - name: Navigate to chat-service
+        run: cd chat-service
+
       # Cache Maven dependencies
       - name: Cache Maven dependencies
         uses: actions/cache@v3
@@ -32,7 +36,7 @@ jobs:
 
       # Build the application with Maven
       - name: Build with Maven
-        run: mvn clean package
+        run: mvn clean package -f chat-service/pom.xml
 
       # Set up Docker
       - name: Log in to DockerHub
