@@ -2,3 +2,4 @@
 chat-service/.env
 *.tar
 .vscode/settings.json
+chat-service/fly.toml
