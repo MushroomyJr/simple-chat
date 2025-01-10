@@ -47,7 +47,7 @@ jobs:
 
       # Build the Docker image
       - name: Build Docker image
-        run: docker build -t mustafaashfaq/chat-service:latest .
+        run: docker build -t mustafaashfaq/chat-service:latest ./chat-service
 
       # Push the Docker image to DockerHub
       - name: Push Docker image
