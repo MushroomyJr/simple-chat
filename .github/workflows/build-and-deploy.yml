@@ -42,6 +42,10 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -DskipTests -f ./chat-service/pom.xml
 
+      # Verify the JAR file is created
+      - name: List target files
+        run: ls -la ./chat-service/target
+
       # Set up Docker
       - name: Log in to DockerHub
         uses: docker/login-action@v2
