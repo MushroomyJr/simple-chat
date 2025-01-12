@@ -17,6 +17,13 @@ jobs:
         curl -L https://fly.io/install.sh | sh
         echo "$HOME/.fly/bin" >> $GITHUB_PATH  # Add Flyctl to the system-wide path
 
+    - name: Install Docker
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker.io
+        sudo systemctl start docker
+        sudo systemctl enable docker
+        
     - name: Build and Push Docker Image
       env:
         PATH: $HOME/.fly/bin:$PATH  # Ensure Flyctl is in the path
