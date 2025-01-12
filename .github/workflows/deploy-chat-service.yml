@@ -16,7 +16,7 @@ jobs:
       - name: Deploy Database
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-        run: flyctl deploy -c ./simple-chat-db/fly.toml
+        run: flyctl deploy -c ./db/fly.toml
 
     - name: Install Flyctl
       run: |
