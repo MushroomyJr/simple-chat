@@ -1,0 +1,32 @@
+# fly.toml app configuration file generated for simple-chat-db on 2025-01-11T17:01:24-05:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'simple-chat-db'
+primary_region = 'yyz'
+
+[build]
+  image = 'mysql:8'
+
+[env]
+  MYSQL_ROOT_PASSWORD = "Br!ggs1882"
+  MYSQL_DATABASE = "simplechat"
+  MYSQL_USER = ${DB_USER}
+  MYSQL_PASSWORD = ${DB_PASSWORD}
+
+[[services]]
+  internal_port = 3306
+  protocol = "tcp"
+  [[services.ports]]
+    port = 3306
+  [[services.tcp_checks]]
+    grace_period = "30s"
+    interval = "15s"
+    timeout = "2s"
+    restart_limit = 3
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
