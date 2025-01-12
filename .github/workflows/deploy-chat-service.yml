@@ -1,7 +1,7 @@
   name: Deploy Chat Service
 
 on:
-  push:
+  pushes:
     branches:
       - main
 
