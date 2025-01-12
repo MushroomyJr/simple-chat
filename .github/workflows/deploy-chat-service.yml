@@ -1,4 +1,4 @@
-name: Deploy Chat Service
+name: Deploy Services
 
 on:
   push:
@@ -6,31 +6,22 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Install Flyctl
-      run: |
-        curl -L https://fly.io/install.sh | sh
-        echo "$HOME/.fly/bin" >> $GITHUB_PATH  # Add Flyctl to the system-wide path
+      - name: Deploy Database
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: flyctl deploy -c ./simple-chat-db/fly.toml
 
-    - name: Build and Push Docker Image
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: |
-        docker build -t mustafaashfaq/chat-service:latest ./chat-service
-        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-        docker push mustafaashfaq/chat-service:latest
-
-    - name: Deploy to Fly.io
-      env:
-        FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-        DB_URL: jdbc:mysql://simple-chat-db.internal:3306/simplechat
-        DB_USERNAME: chatservice-user
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      run: |
-        flyctl deploy
+      - name: Deploy Backend
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          DB_URL: jdbc:mysql://simple-chat-db.internal:3306/simplechat
+          DB_USERNAME: chatservice-user
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: flyctl deploy -c ./chat-service/fly.toml
