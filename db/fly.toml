@@ -12,8 +12,8 @@ primary_region = 'yyz'
 [env]
   MYSQL_ROOT_PASSWORD = "Br!ggs1882"
   MYSQL_DATABASE = "simplechat"
-  MYSQL_USER = ${DB_USER}
-  MYSQL_PASSWORD = ${DB_PASSWORD}
+  MYSQL_USER = "${MYSQL_USER}"
+  MYSQL_PASSWORD = "${MYSQL_PASSWORD}"
 
 [[services]]
   internal_port = 3306
