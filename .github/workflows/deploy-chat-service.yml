@@ -16,7 +16,7 @@ jobs:
       run: |
         docker build -t mustafaashfaq/chat-service:latest .
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker push your-dockerhub-username/chat-service:latest
+        docker push mustafaashfaq/chat-service:latest
 
     - name: Deploy to Fly.io
       env:
