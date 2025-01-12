@@ -16,7 +16,7 @@ jobs:
       run: |
         curl -L https://fly.io/install.sh | sh
         export PATH=$HOME/.fly/bin:$PATH
-        flyctl --version
+        flyctl version
 
     - name: Build and Push Docker Image
       run: |
