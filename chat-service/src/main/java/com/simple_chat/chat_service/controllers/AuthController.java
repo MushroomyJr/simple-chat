@@ -7,6 +7,7 @@ import com.simple_chat.chat_service.security.JwtService;
 import com.simple_chat.chat_service.service.UserService;
 import com.simple_chat.chat_service.util.PasswordUtil;
 import jakarta.validation.Valid;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
