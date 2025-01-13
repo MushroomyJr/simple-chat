@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    env_file:
+      - ./chat-service/.env
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/simplechat
       SPRING_DATASOURCE_USERNAME: root

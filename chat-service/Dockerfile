@@ -4,8 +4,8 @@ FROM maven:3.8.5-openjdk-17 AS builder
 # Set the working directory for Maven
 WORKDIR /app
 
-# Copy the Maven project files into the builder container
-COPY pom.xml .
+# Copy only necessary files for the build
+COPY pom.xml ./
 COPY src ./src
 
 # Build the application with Maven, skipping tests to speed up the process
@@ -20,8 +20,8 @@ WORKDIR /app
 # Copy the built JAR file from the builder stage
 COPY --from=builder /app/target/chat-service-*.jar app.jar
 
-# Copy the .env file (if required)
-COPY .env /app/.env
+# Explicitly copy the .env file from the local build context
+#COPY .env /app/.env
 
 # Expose the port your app runs on
 EXPOSE 8080

@@ -1,3 +1,4 @@
+com\simple_chat\chat_service\security\JwtService.class
 com\simple_chat\chat_service\DTOs\MessageDto.class
 com\simple_chat\chat_service\repository\ChatRepository.class
 com\simple_chat\chat_service\service\MessageService.class
@@ -6,11 +7,10 @@ com\simple_chat\chat_service\controllers\ChatController.class
 com\simple_chat\chat_service\DTOs\UserDto.class
 com\simple_chat\chat_service\controllers\UsersController.class
 com\simple_chat\chat_service\entity\Chat.class
-com\simple_chat\chat_service\service\JwtService.class
-com\simple_chat\chat_service\service\SecurityConfiguration.class
 com\simple_chat\chat_service\entity\ChatParticipant.class
 com\simple_chat\chat_service\repository\UserRepository.class
 com\simple_chat\chat_service\ChatServiceApplication.class
+com\simple_chat\chat_service\security\CorsConfig.class
 com\simple_chat\chat_service\repository\ChatParticipantRepository.class
 com\simple_chat\chat_service\DTOs\ChatResponseDto.class
 com\simple_chat\chat_service\service\ChatService.class
@@ -18,9 +18,9 @@ com\simple_chat\chat_service\DTOs\ChatDto.class
 com\simple_chat\chat_service\entity\Message.class
 com\simple_chat\chat_service\DTOs\ChatResponseDto$ParticipantResponseDto.class
 com\simple_chat\chat_service\repository\MessageRepository.class
-com\simple_chat\chat_service\service\CorsConfig.class
+com\simple_chat\chat_service\security\JwtAuthenticationFilter.class
+com\simple_chat\chat_service\security\SecurityConfiguration.class
 com\simple_chat\chat_service\entity\User.class
-com\simple_chat\chat_service\service\JwtAuthenticationFilter.class
 com\simple_chat\chat_service\service\MessageServiceImpl.class
 com\simple_chat\chat_service\service\UserService.class
 com\simple_chat\chat_service\controllers\AuthController.class

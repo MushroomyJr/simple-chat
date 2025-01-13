@@ -3,7 +3,7 @@ package com.simple_chat.chat_service.controllers;
 import com.simple_chat.chat_service.DTOs.LoginUserDto;
 import com.simple_chat.chat_service.DTOs.UserDto;
 import com.simple_chat.chat_service.entity.User;
-import com.simple_chat.chat_service.service.JwtService;
+import com.simple_chat.chat_service.security.JwtService;
 import com.simple_chat.chat_service.service.UserService;
 import com.simple_chat.chat_service.util.PasswordUtil;
 import jakarta.validation.Valid;
