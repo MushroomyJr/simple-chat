@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import ChatWindow from '../../components/ChatWindow'
-import Sidebar from '../../components/Sidebar'
+import Sidebar from '../../components/SideBar'
 import './ChatPage.css'
 import UserMenu from '../../components/UserMenu'
 

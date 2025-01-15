@@ -5,6 +5,7 @@ import { UserInfo } from '../../common/types'
 import NavigateButton from '../../components/NavigateButton'
 import './RegisterPage.css'
 import { useNavigate } from 'react-router'
+import config from '../config'
 
 const RegisterPage = () => {
   const [error, setError] = useState()
@@ -13,7 +14,7 @@ const RegisterPage = () => {
     console.log('user info: ', userInfo)
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/auth/register',
+        `${config.API_BASE_URL}/api/auth/register`,
         userInfo
       )
 

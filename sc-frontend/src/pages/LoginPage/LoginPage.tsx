@@ -2,6 +2,7 @@ import axios from 'axios'
 import LoginForm from '../../components/LoginForm'
 import { useNavigate } from 'react-router'
 import { useState } from 'react'
+import config from '../config'
 
 type LoginInfo = {
   username: string
@@ -14,8 +15,12 @@ const LoginPage = () => {
   const handleLogin = async (loginInfo: LoginInfo) => {
     console.log(loginInfo)
     const respone = await axios.post(
-      'http://localhost:8080/api/auth/login',
-      loginInfo
+      `${config.API_BASE_URL}/api/auth/login`,
+      loginInfo,{
+        headers:{
+          "Content-Type": "application/json",
+        }
+      }
     )
 
     if (respone.status === 200) {
