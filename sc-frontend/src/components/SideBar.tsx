@@ -3,7 +3,10 @@ import axios from 'axios'
 import { Chat } from '../common/types'
 import Button from '@mui/material/Button'
 import './SideBar.css'
+import config from '../pages/config'
+import NewChatModal from './NewChatModal'
 const Sidebar = ({ onSelectChat }: any) => {
+  const [isModalOpen, setModalOpen] = useState(false)
   const [chats, setChats] = useState([])
   const userId = localStorage.getItem('userId')
   const jwt = localStorage.getItem('jwt')
@@ -12,7 +15,7 @@ const Sidebar = ({ onSelectChat }: any) => {
     const fetchChats = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/chat/user/${user_id}`,
+          `${config.API_BASE_URL}/api/chat/user/${user_id}`,
           {
             headers: { Authorization: `Bearer ${jwt}` },
           }
@@ -27,14 +30,11 @@ const Sidebar = ({ onSelectChat }: any) => {
     fetchChats()
   }, [userId])
 
-  const handleCreateNewChat = () => {
-    alert('creating new chat')
-  }
   return (
     <>
       <div className="sidebar">
         <h3 className="title">Simple Chat</h3>
-        <Button className="create-chat-button" onClick={handleCreateNewChat}>
+        <Button className="create-chat-button" onClick={()=>setModalOpen(true)}>
           new chat
         </Button>
         <ul className="user-chats">
@@ -48,6 +48,7 @@ const Sidebar = ({ onSelectChat }: any) => {
             </li>
           ))}
         </ul>
+        <NewChatModal isOpen={isModalOpen} onClose={()=>setModalOpen(false)}/>
       </div>
     </>
   )

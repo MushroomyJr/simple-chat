@@ -5,7 +5,7 @@ import { useState } from 'react'
 import config from '../config'
 
 type LoginInfo = {
-  username: string
+  userName: string
   password: string
 }
 
@@ -13,8 +13,7 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const [error, setError] = useState('')
   const handleLogin = async (loginInfo: LoginInfo) => {
-    console.log(loginInfo)
-    const respone = await axios.post(
+    const response = await axios.post(
       `${config.API_BASE_URL}/api/auth/login`,
       loginInfo,{
         headers:{
@@ -23,10 +22,13 @@ const LoginPage = () => {
       }
     )
 
-    if (respone.status === 200) {
+    if (response.status === 200) {
       console.log('user logged in')
-      localStorage.setItem('jwt', respone.data.jwtToken)
-      localStorage.setItem('user_id', respone.data.user_id)
+      console.log('log in response: ', response)
+      console.log('login info', loginInfo)
+      localStorage.setItem('jwt', response.data.jwtToken)
+      localStorage.setItem('user_id', response.data.user_id)
+      localStorage.setItem('user_name', loginInfo.userName)
     } else {
       setError('error loggin in user')
     }
@@ -36,6 +38,7 @@ const LoginPage = () => {
     <>
       <h1>the login page.</h1>
       <LoginForm handleLogin={handleLogin} />
+      {error ? <>there was an error</> : <></>}
     </>
   )
 }

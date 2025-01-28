@@ -24,8 +24,13 @@ export type Chat = {
 }
 
 export type Message = {
-  id: number
-  senderId: number
-  content: string
-  index: number
+  id?: number
+  senderId?: number
+  content?: string
+  index?: number
 }
+
+export type selectedChat = {
+  id: number
+  name: string
+} | null;

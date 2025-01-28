@@ -1,17 +1,14 @@
-import { useState } from 'react'
 import ChatWindow from '../../components/ChatWindow'
 import Sidebar from '../../components/SideBar'
 import './ChatPage.css'
 import UserMenu from '../../components/UserMenu'
+import { useChat } from '../../context/ChatContext'
+import { selectedChat } from '../../common/types'
 
-type selectedChat = {
-  id: number
-  name: string
-}
 const ChatPage = () => {
-  const [selectedChat, setSelectedChat] = useState<selectedChat>()
+  const {selectedChat, setSelectedChat} = useChat();
   const handleChatSelect = (response: selectedChat) => {
-    setSelectedChat(response)
+    setSelectedChat(response);
   }
   return (
     <>
